@@ -5,7 +5,7 @@ from gridfs import GridFS, GridFSBucket
 class MongoDB:
     def __init__(self):
         self.conn = None
-        self.db: pymongo.database.Database = pymongo.Database
+        self.db: pymongo.database.Database = None
         self.uri = None
         self.port = None
 
@@ -39,7 +39,7 @@ class MongoDB:
 
     def find(self, coll_name: str, filter, projection=None, skip=0, limit=30, sort=None):
         coll = self.db.get_collection(coll_name)
-        result = coll.find(filter=filter, projection=projection, skip=skip, limit=limit, sort=sort)
+        result = coll.find_one(filter=filter, projection=projection, skip=skip, limit=limit, sort=sort)
         return result
 
     def find_all(self, coll_name):
@@ -53,9 +53,9 @@ class MongoDB:
         insert_image = gfs.put(data, filename=filename, metadata=metadata)
         return insert_image
 
-    def gfs_get(self, filter):
+    def gfs_get(self, index):
         gfs = GridFS(self.db)
-        data = gfs.find(filter)
+        data = gfs.get(index)
         return data
 
     def gfs_download(self, output_file_path, filename):

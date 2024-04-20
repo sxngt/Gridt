@@ -2,8 +2,9 @@ User:
   Username: admin
   Password: admin
 Mongo:
-  MongoUri: mongodb://myDatabaseUser=admin
+  MongoHost: mits.iptime.org
+  MongoUser: mits
   MongoPort: 27017
-  MongoUsername: 1234
-  MongoPassword: 1234
-  Database: database
+  MongoUsername: ehql
+  MongoPassword: ehql
+  Database: testingDB
